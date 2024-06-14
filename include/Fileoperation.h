@@ -30,6 +30,6 @@ typedef ptrPlaylist firstPlaylist;
 void loadplaylist();
 void saveLagu(ptrArtis head);
 void loadLagu(ptrArtis &pBantu);
-void savePlaylist();
+void savePlaylist(firstPlaylist head);
 
 #endif

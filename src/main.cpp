@@ -224,7 +224,7 @@ int main()
     } while (pilih != 11);
 
     saveLagu(list);
-    savePlaylist(headPlaylist);
+    // savePlaylist(headPlaylist);
 
     return 0;
 }
