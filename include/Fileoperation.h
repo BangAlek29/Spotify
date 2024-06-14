@@ -28,7 +28,8 @@ typedef ptrArtis first;
 typedef ptrPlaylist firstPlaylist;
 
 void loadplaylist();
-void save(ptrArtis head);
-void load(ptrArtis &pBantu);
+void saveLagu(ptrArtis head);
+void loadLagu(ptrArtis &pBantu);
+void savePlaylist();
 
 #endif

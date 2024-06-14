@@ -29,7 +29,8 @@ int main()
     string key, key2;
 
     createDataList(list);
-    load(list);
+    loadLagu(list);
+    loadplaylist();
     createPlayList(headPlaylist);
     traversalPlaylist(headPlaylist);
     do
@@ -222,7 +223,8 @@ int main()
         }
     } while (pilih != 11);
 
-    save(list);
+    saveLagu(list);
+    savePlaylist(headPlaylist);
 
     return 0;
 }

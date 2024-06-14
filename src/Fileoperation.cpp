@@ -1,92 +1,13 @@
 #include "../include/Fileoperation.h"
-
-void loadplaylist()
+void loadLagu(ptrArtis &pBantu)
 {
-    Queue q;
-    ifstream file("Data/playlist.txt");
+    ifstream file("Data/Lagu.txt");
     if (!file.is_open())
     {
         cout << "File tidak ditemukan. Membuat file baru..." << endl;
-        ofstream createFile("Data/playlist.txt"); // Membuat file baru
+        ofstream createFile("Data/Lagu.txt"); // Membuat file baru
         createFile.close();
-        file.open("Data/playlist.txt"); // Membuka file yang baru dibuat
-        if (!file.is_open())
-        {
-            cout << "Gagal membuat file baru." << endl;
-            return;
-        }
-    
-    }
-    string line;
-
-    while (getline(file, line))
-    {
-        if (line == "Lagu:")
-        {
-            ptrLaguPlaylist newLagu = new LaguPlaylist;
-            getline(file, newLagu->judulLagu);
-            file.ignore();
-            newLagu->nextLagu = nullptr;
-            newLagu->prevLagu = nullptr;
-
-            enqueue(q, newLagu);
-        }
-    }
-
-    file.close();
-}
-
-void save(ptrArtis head)
-{
-    ofstream file("Data/data.txt");
-    if (!file.is_open())
-    {
-        cout << "File tidak ditemukan" << endl;
-        return;
-    }
-
-    ptrArtis currentArtis = head;
-    while (currentArtis != nullptr)
-    {
-        file << "Artis:" << endl;
-        file << currentArtis->idArtis << endl;
-        file << currentArtis->namaArtis << endl;
-        file << currentArtis->jumlahAlbum << endl;
-
-        ptrAlbum currentAlbum = currentArtis->firstAlbum;
-        while (currentAlbum != nullptr)
-        {
-            file << "Album:" << endl;
-            file << currentAlbum->idAlbum << endl;
-            file << currentAlbum->judulAlbum << endl;
-            file << currentAlbum->jumlahLagu << endl;
-
-            ptrLagu currentLagu = currentAlbum->firstLagu;
-            while (currentLagu != nullptr)
-            {
-                file << "Lagu:" << endl;
-                file << currentLagu->idLagu << endl;
-                file << currentLagu->judulLagu << endl;
-                file << currentLagu->genre << endl;
-                file << currentLagu->durasi << endl;
-                currentLagu = currentLagu->nextLagu;
-            }
-            currentAlbum = currentAlbum->nextAlbum;
-        }
-        currentArtis = currentArtis->nextArtis;
-    }
-
-    file.close();
-}
-void load(ptrArtis &pBantu)
-{
-    ifstream file("Data/data.txt");
-    if (!file.is_open())
-    {
-        cout << "File tidak ditemukan. Membuat file baru..." << endl;
-        ofstream createFile("Data/data.txt"); // Membuat file baru
-        createFile.close();
-        file.open("Data/data.txt"); // Membuka file yang baru dibuat
+        file.open("Data/Lagu.txt"); // Membuka file yang baru dibuat
         if (!file.is_open())
         {
             cout << "Gagal membuat file baru." << endl;
@@ -143,4 +64,99 @@ void load(ptrArtis &pBantu)
     }
 
     file.close();
+}
+
+void loadplaylist()
+{
+    Queue q;
+    ifstream file("Data/Playlist.txt");
+    if (!file.is_open())
+    {
+        cout << "File tidak ditemukan. Membuat file baru..." << endl;
+        ofstream createFile("Data/Playlist.txt"); // Membuat file baru
+        createFile.close();
+        file.open("Data/Playlist.txt"); // Membuka file yang baru dibuat
+        if (!file.is_open())
+        {
+            cout << "Gagal membuat file baru." << endl;
+            return;
+        }
+    
+    }
+    string line;
+
+    while (getline(file, line))
+    {
+        if (line == "Lagu:")
+        {
+            ptrLaguPlaylist newLagu = new LaguPlaylist;
+            getline(file, newLagu->judulLagu);
+            file.ignore();
+            newLagu->nextLagu = nullptr;
+            newLagu->prevLagu = nullptr;
+
+            enqueue(q, newLagu);
+        }
+    }
+
+    file.close();
+}
+
+void saveLagu(ptrArtis head)
+{
+    ofstream file("Data/Lagu.txt");
+    if (!file.is_open())
+    {
+        cout << "File tidak ditemukan" << endl;
+        return;
+    }
+
+    ptrArtis currentArtis = head;
+    while (currentArtis != nullptr)
+    {
+        file << "Artis:" << endl;
+        file << currentArtis->idArtis << endl;
+        file << currentArtis->namaArtis << endl;
+        file << currentArtis->jumlahAlbum << endl;
+
+        ptrAlbum currentAlbum = currentArtis->firstAlbum;
+        while (currentAlbum != nullptr)
+        {
+            file << "Album:" << endl;
+            file << currentAlbum->idAlbum << endl;
+            file << currentAlbum->judulAlbum << endl;
+            file << currentAlbum->jumlahLagu << endl;
+
+            ptrLagu currentLagu = currentAlbum->firstLagu;
+            while (currentLagu != nullptr)
+            {
+                file << "Lagu:" << endl;
+                file << currentLagu->idLagu << endl;
+                file << currentLagu->judulLagu << endl;
+                file << currentLagu->genre << endl;
+                file << currentLagu->durasi << endl;
+                currentLagu = currentLagu->nextLagu;
+            }
+            currentAlbum = currentAlbum->nextAlbum;
+        }
+        currentArtis = currentArtis->nextArtis;
+    }
+
+    file.close();
+}
+
+void savePlaylist(ptrLaguPlaylist head){
+    ofstream file("Data/Playlist.txt");
+    if (!file.is_open())
+    {
+        cout << "File tidak ditemukan" << endl;
+        return;
+    }
+    ptrLaguPlaylist currentLagu = head;
+    while (currentLagu != nullptr)
+    {
+        file << "Lagu:" << endl;
+        file << currentLagu->judulLagu << endl;
+        currentLagu = currentLagu->nextLagu;
+    }
 }
